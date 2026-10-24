@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101827" />
+  <title>Sarvam — AI for all from India</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --paper: #101827;
+      --ink: #f4f7ff;
+      --muted: #b4bfd3;
+      --line: #303d55;
+      --green: #55e58a;
+      --orange: #f2a477;
+      --blue: #a78bfa;
+      --lav: #8b5cf6;
+      --radius: 22px;
+      --max: 1240px;
+      --surface: #172238;
+      --surface-raised: #1c2941;
+      --purple: #a78bfa;
+      --purple-deep: #8b5cf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    html,
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 12% 8%, rgba(139, 92, 246, .19), transparent 34%),
+        radial-gradient(ellipse at 88% 23%, rgba(1, 169, 63, 0.315), transparent 30%),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 48px));
+      margin: auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(16, 24, 39, .88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(167, 139, 250, .18);
+    }
+
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      font-weight: 850;
+      letter-spacing: -1.8px;
+      font-size: 27px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      position: relative;
+      background: conic-gradient(from 45deg,
+          #bda2ff,
+          #9273e7,
+          #6ae0a1,
+          #bda2ff);
+      border-radius: 8px 50% 50%;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      left: 8px;
+      top: 8px;
+      background: #0c1526;
+      border-radius: 50%;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 28px;
+      font-size: 13px;
+      color: #d2d9e8;
+    }
+
+    .navlinks a:hover,
+    .footer a:hover {
+      color: var(--green);
+      opacity: 1;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      border: 1px solid #64718a;
+      border-radius: 999px;
+      padding: 11px 17px;
+      font-size: 13px;
+      font-weight: 650;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      transition: transform .2s, background .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn.dark {
+      background: var(--purple-deep);
+      color: #fff;
+      border-color: var(--purple-deep);
+    }
+
+    .btn.light {
+      background: transparent;
+      color: var(--ink);
+      border-color: #56637b;
+    }
+
+    .btn.light:hover,
+    .btn:not(.dark):hover {
+      background: rgba(167, 139, 250, .12);
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      background: transparent;
+      font-size: 20px;
+      color: var(--ink);
+    }
+
+    .hero {
+      padding: 88px 0 50px;
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.03fr .97fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      font-weight: 750;
+      color: #b8c3d7;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .eyebrow:before {
+      content: "";
+      width: 23px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .hero h1 {
+      font-size: clamp(54px, 7vw, 92px);
+      line-height: .96;
+      letter-spacing: -6px;
+      margin: 24px 0 26px;
+      font-weight: 560;
+      max-width: 690px;
+    }
+
+    .hero h1 em {
+      font-family: Georgia, serif;
+      font-weight: 400;
+      letter-spacing: -5px;
+      color: var(--purple);
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 430px;
+      line-height: 1.65;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 29px;
+    }
+
+    .hero-art {
+      min-height: 410px;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .art-orbit {
+      width: min(360px, 85%);
+      aspect-ratio: 1;
+      border: 1px solid #66708b;
+      border-radius: 50%;
+      position: relative;
+      display: grid;
+      place-items: center;
+      animation: rotate 35s linear infinite;
+    }
+
+    .art-orbit:before,
+    .art-orbit:after {
+      content: "";
+      position: absolute;
+      border: 1px solid #4c5975;
+      border-radius: 50%;
+    }
+
+    .art-orbit:before {
+      inset: 12%;
+    }
+
+    .art-orbit:after {
+      inset: 26%;
+    }
+
+    .art-core {
+      width: 34%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--purple);
+      color: #101827;
+      display: grid;
+      place-items: center;
+      font-size: 54px;
+      font-weight: 300;
+      letter-spacing: -4px;
+      box-shadow: 0 0 65px rgba(167, 139, 250, .45);
+      animation: rotate 35s linear reverse infinite;
+    }
+
+    .orbit-dot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #F2A477;
+      top: 14%;
+      left: 22%;
+      box-shadow: 0 0 0 7px #F2A47735;
+    }
+
+    .orbit-dot.two {
+      background: #A78BFA;
+      top: 65%;
+      left: 83%;
+      width: 14px;
+      height: 14px;
+      box-shadow: 0 0 0 7px #A78BFA35;
+    }
+
+    .orbit-dot.three {
+      background: #22C55E;
+      top: 83%;
+      left: 29%;
+      width: 11px;
+      height: 11px;
+      box-shadow: 0 0 0 7px #22C55E35;
+    }
+
+    .floating-label {
+      position: absolute;
+      background: #202d44;
+      border: 1px solid #3b4962;
+      color: var(--ink);
+      border-radius: 13px;
+      padding: 12px 15px;
+      font-size: 12px;
+      box-shadow: 0 12px 30px #0004;
+    }
+
+    .floating-label strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    .floating-label span {
+      color: var(--muted);
+    }
+
+    .label-a {
+      left: 18px;
+      top: 28px;
+    }
+
+    .label-b {
+      right: 8px;
+      bottom: 17px;
+    }
+
+    .art-caption {
+      position: absolute;
+      bottom: 17px;
+      left: 26px;
+      font-size: 10px;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      color: #b8c3d7;
+    }
+
+    .ticker {
+      border-block: 1px solid var(--line);
+      overflow: hidden;
+      padding: 19px 0;
+      margin-top: 50px;
+    }
+
+    .ticker-inner {
+      display: flex;
+      align-items: center;
+      gap: 52px;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+      color: #aab6ca;
+      font-size: 12px;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      font-weight: 650;
+    }
+
+    .ticker .star {
+      color: var(--purple);
+      font-size: 20px;
+    }
+
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 35px;
+      align-items: flex-end;
+      margin-bottom: 42px;
+    }
+
+    .kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.7px;
+      color: #b8c3d7;
+      font-weight: 750;
+    }
+
+    .section h2 {
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -3.5px;
+      font-weight: 550;
+      margin: 15px 0 0;
+      max-width: 680px;
+    }
+
+    .section-intro {
+      max-width: 370px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+    }
+
+    .product-card {
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 330px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #3a4861;
+    }
+
+    .product-card.green {
+      background: linear-gradient(135deg, #24513f, #1d3a36);
+      color: #f4fff8;
+    }
+
+    .product-card.dark-card {
+      background: #1b263a;
+      color: #f4f7ff;
+      border-color: #34415a;
+    }
+
+    .product-card h3 {
+      font-size: 29px;
+      letter-spacing: -1.2px;
+      font-weight: 550;
+      margin: 0 0 9px;
+    }
+
+    .product-card p {
+      font-size: 13px;
+      max-width: 340px;
+      line-height: 1.65;
+      opacity: .75;
+      margin: 0;
+    }
+
+    .mini-window {
+      position: absolute;
+      bottom: 22px;
+      right: 22px;
+      left: 22px;
+      background: #111c2e;
+      color: #eaf0fb;
+      border-radius: 13px;
+      padding: 15px;
+      border: 1px solid #35445e;
+      box-shadow: 0 14px 35px #0003;
+    }
+
+    .window-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: #b1bdd2;
+      margin-bottom: 12px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .dots i {
+      width: 5px;
+      height: 5px;
+      background: #58647b;
+      border-radius: 50%;
+    }
+
+    .task {
+      font-size: 12px;
+      border: 1px solid #35445e;
+      background: #19263b;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 7px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .task-num {
+      font-size: 10px;
+      color: #aab7ca;
+    }
+
+    .task .check {
+      margin-left: auto;
+      color: var(--green);
+    }
+
+    .voice-visual {
+      position: absolute;
+      bottom: 27px;
+      left: 28px;
+      right: 28px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      justify-content: center;
+    }
+
+    .voice-visual span {
+      height: var(--h);
+      width: 5px;
+      background: var(--green);
+      border-radius: 5px;
+      opacity: .9;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 8px 12px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      opacity: .85;
+      color: inherit;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .feature {
+      border-top: 1px solid var(--line);
+      padding: 23px 4px 10px;
+    }
+
+    .feature-number {
+      font-size: 11px;
+      color: #aab6ca;
+    }
+
+    .feature h3 {
+      font-size: 22px;
+      letter-spacing: -.7px;
+      font-weight: 570;
+      margin: 20px 0 10px;
+    }
+
+    .feature p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 310px;
+    }
+
+    .feature-art {
+      height: 165px;
+      border-radius: 15px;
+      margin-bottom: 18px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .feature-art.research {
+      background: linear-gradient(135deg, #34275c, #514084);
+    }
+
+    .feature-art.data {
+      background: linear-gradient(135deg, #193d32, #245541);
+    }
+
+    .feature-art.present {
+      background: linear-gradient(135deg, #263d4c, #30335b);
+    }
+
+    .paper-stack {
+      width: 90px;
+      height: 110px;
+      background: #202d44;
+      border: 1px solid #7465a8;
+      transform: rotate(-8deg);
+      border-radius: 4px;
+      padding: 16px 10px;
+      box-shadow: 14px 10px 0 #8b5cf6;
+    }
+
+    .paper-stack i {
+      display: block;
+      height: 4px;
+      background: #a78bfa;
+      margin: 7px 0;
+      border-radius: 3px;
+    }
+
+    .chart-bars {
+      height: 85px;
+      display: flex;
+      align-items: flex-end;
+      gap: 9px;
+    }
+
+    .chart-bars i {
+      width: 20px;
+      border-radius: 5px 5px 0 0;
+      background: #8b5cf6;
+      height: var(--h);
+    }
+
+    .chart-bars i:nth-child(2n) {
+      background: #55e58a;
+    }
+
+    .slides {
+      width: 145px;
+      height: 91px;
+      background: #202d44;
+      border-radius: 5px;
+      box-shadow: 10px 10px 0 #55e58a;
+      padding: 14px;
+      transform: rotate(4deg);
+      color: #f4f7ff;
+    }
+
+    .slides b {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 17px;
+      line-height: 1.1;
+      margin-bottom: 9px;
+    }
+
+    .slides i {
+      display: inline-block;
+      width: 24px;
+      height: 19px;
+      background: #55e58a;
+      margin-right: 5px;
+    }
+
+    .code-section {
+      background: #131f33;
+    }
+
+    .code-layout {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 65px;
+      align-items: center;
+    }
+
+    .code-tabs {
+      display: flex;
+      gap: 7px;
+      margin: 28px 0 16px;
+    }
+
+    .code-tab {
+      border: 1px solid #45536d;
+      border-radius: 999px;
+      padding: 8px 14px;
+      background: transparent;
+      font-size: 12px;
+      color: #dce4f3;
+      margin-left: 10px;
+      margin-right: 0px;
+    }
+
+    .code-tab.active {
+      background: var(--purple-deep);
+      color: #fff;
+      border-color: var(--purple-deep);
+    }
+
+    .code-box {
+      background: #0b1220;
+      color: #eaf0fb;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid #34415a;
+      box-shadow: 0 22px 55px #0004;
+    }
+
+    .code-top {
+      padding: 15px 20px;
+      border-bottom: 1px solid #34415a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #b5c1d5;
+    }
+
+    .copy-btn {
+      background: #26334b;
+      border: 1px solid #4a5871;
+      color: #f4f7ff;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 11px;
+    }
+
+    .code-box pre {
+      margin: 0;
+      padding: 26px 24px;
+      overflow: auto;
+      min-height: 235px;
+      font-size: 12px;
+      line-height: 1.9;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: #b9f7cc;
+    }
+
+    .code-bottom {
+      display: flex;
+      gap: 18px;
+      padding: 16px 22px;
+      border-top: 1px solid #34415a;
+      color: #b5c1d5;
+      font-size: 11px;
+      flex-wrap: wrap;
+    }
+
+    .code-bottom span:before {
+      content: "✓";
+      color: var(--green);
+      margin-right: 7px;
+    }
+
+    .api-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .api-item {
+      border-top: 1px solid var(--line);
+      padding: 15px 0;
+    }
+
+    .api-item strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .api-item span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .platform-band {
+      background: #0b1220;
+      color: #f4f7ff;
+      padding: 80px 0;
+    }
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .platform-grid h2 {
+      font-size: clamp(38px, 5vw, 66px);
+      letter-spacing: -3.5px;
+      line-height: 1.02;
+      font-weight: 500;
+      margin: 17px 0 22px;
+    }
+
+    .platform-grid p {
+      color: #b4bfd3;
+      font-size: 14px;
+      line-height: 1.8;
+      max-width: 440px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      padding: 20px 15px;
+      border: 1px solid #36435b;
+      border-radius: 14px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(25px, 3vw, 38px);
+      font-weight: 500;
+      letter-spacing: -1.5px;
+    }
+
+    .stat span {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #b4bfd3;
+      margin-top: 9px;
+    }
+
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .cap-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: rgba(28, 41, 65, .56);
+    }
+
+    .cap-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: #302852;
+      color: #d7c9ff;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+    }
+
+    .cap-card h3 {
+      font-size: 21px;
+      letter-spacing: -.7px;
+      font-weight: 560;
+      margin: 25px 0 8px;
+    }
+
+    .cap-card p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .cap-card a {
+      font-size: 12px;
+      margin-top: 20px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .quote {
+      background: #1c2941;
+      color: #f4f7ff;
+      border-radius: 22px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .quote-mark {
+      font-family: Georgia, serif;
+      font-size: 100px;
+      line-height: .7;
+      color: var(--green);
+      margin-top: 20px;
+    }
+
+    .quote blockquote {
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: clamp(22px, 3vw, 34px);
+      letter-spacing: -.7px;
+      line-height: 1.35;
+    }
+
+    .quote-by {
+      margin-top: 26px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .updates {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .update {
+      padding: 23px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      transition: background .2s, transform .2s;
+      background: rgba(28, 41, 65, .42);
+    }
+
+    .update:hover {
+      background: #25334d;
+      transform: translateY(-3px);
+    }
+
+    .update-meta {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #aebbd0;
+    }
+
+    .update h3 {
+      font-size: 20px;
+      letter-spacing: -.6px;
+      line-height: 1.2;
+      font-weight: 550;
+      margin: 28px 0 auto;
+    }
+
+    .update .arrow {
+      margin-top: 22px;
+      font-size: 18px;
+    }
+
+    .cta {
+      padding: 70px 0 90px;
+    }
+
+    .cta-panel {
+      background: linear-gradient(120deg, #8b5cf6, #6d4ad1);
+      color: #fff;
+      border-radius: 24px;
+      padding: 54px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .cta-panel .btn {
+      border-color: #fff;
+      color: #fff;
+      background: rgba(16, 24, 39, .2);
+    }
+
+    .cta h2 {
+      font-size: clamp(35px, 5vw, 62px);
+      line-height: 1;
+      letter-spacing: -3px;
+      font-weight: 550;
+      max-width: 650px;
+      margin: 15px 0 0;
+    }
+
+    .footer {
+      background: #0b1220;
+      color: #f4f7ff;
+      padding: 55px 0 25px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 35px;
+      padding-bottom: 45px;
+      border-bottom: 1px solid #303d55;
+    }
+
+    .footer .brand-mark {
+      background: #f4f7ff;
+    }
+
+    .footer .brand-mark:after {
+      background: var(--green);
+    }
+
+    .footer p {
+      font-size: 12px;
+      color: #b4bfd3;
+      max-width: 270px;
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 65px;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 12px;
+      color: #c7d1e3;
+    }
+
+    .footer-col strong {
+      font-size: 11px;
+      color: #f4f7ff;
+      margin-bottom: 6px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 22px;
+      color: #96a4bc;
+      font-size: 10px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes rotate {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes marquee {
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      *,
+      *:before,
+      *:after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media(max-width:850px) {
+      .navlinks {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        right: 0;
+        background: #101827;
+        padding: 20px 24px 26px;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .navlinks.open {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-actions .btn {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 60px;
+        min-height: auto;
+      }
+
+      .hero-grid,
+      .product-grid,
+      .code-layout,
+      .platform-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid {
+        gap: 35px;
+      }
+
+      .hero h1 {
+        letter-spacing: -4px;
+      }
+
+      .hero-art {
+        min-height: 350px;
+      }
+
+      .section {
+        padding: 72px 0;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .feature-grid,
+      .cap-grid,
+      .updates {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .code-layout {
+        gap: 30px;
+      }
+
+      .platform-grid {
+        gap: 35px;
+      }
+
+      .quote {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .quote-mark {
+        font-size: 70px;
+      }
+
+      .footer-top {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        gap: 50px;
+      }
+    }
+
+    @media(max-width:560px) {
+      .wrap {
+        width: min(100% - 32px, var(--max));
+      }
+
+      .nav {
+        height: 66px;
+      }
+
+      .navlinks {
+        top: 66px;
+      }
+
+      .brand {
+        font-size: 24px;
+      }
+
+      .hero {
+        padding: 48px 0 35px;
+      }
+
+      .hero h1 {
+        font-size: 57px;
+        letter-spacing: -3.8px;
+      }
+
+      .hero h1 em {
+        letter-spacing: -3px;
+      }
+
+      .hero-copy {
+        font-size: 15px;
+      }
+
+      .hero-art {
+        min-height: 300px;
+        padding: 15px;
+      }
+
+      .floating-label {
+        padding: 9px 11px;
+        font-size: 10px;
+      }
+
+      .floating-label strong {
+        font-size: 11px;
+      }
+
+      .label-a {
+        left: 10px;
+        top: 15px;
+      }
+
+      .label-b {
+        right: 10px;
+        bottom: 18px;
+      }
+
+      .art-caption {
+        left: 16px;
+        bottom: 10px;
+        font-size: 8px;
+      }
+
+      .section {
+        padding: 58px 0;
+      }
+
+      .section h2 {
+        letter-spacing: -2.5px;
+      }
+
+      .product-card {
+        padding: 22px;
+        min-height: 350px;
+      }
+
+      .product-card h3 {
+        font-size: 25px;
+      }
+
+      .feature-grid,
+      .cap-grid,
+      .updates {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-art {
+        height: 180px;
+      }
+
+      .code-box pre {
+        font-size: 10px;
+        padding: 20px 15px;
+      }
+
+      .api-list {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .stat span {
+        margin: 0;
+        text-align: right;
+      }
+
+      .quote {
+        padding: 26px;
+      }
+
+      .cta {
+        padding: 45px 0 60px;
+      }
+
+      .cta-panel {
+        padding: 30px 24px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .cta h2 {
+        letter-spacing: -2px;
+      }
+
+      .footer-links {
+        gap: 25px;
+        flex-wrap: wrap;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="Sarvam home"><span class="brand-mark"></span>sarvam</a>
+      <nav class="navlinks" id="navlinks" aria-label="Main navigation">
+        <a href="#platform">Platform</a><a href="#products">Products</a><a href="#developers">Developers</a><a
+          href="#enterprise">Enterprise</a><a href="#updates">Research & updates</a>
+      </nav>
+      <div class="nav-actions"><a class="btn light" href="#developers">Documentation ↗</a><a class="btn dark"
+          href="#contact">Get started ↗</a><button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"
+          aria-expanded="false">☰</button></div>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <div class="eyebrow">India's sovereign AI platform</div>
+          <h1>AI for all<br>from <em>India.</em></h1>
+          <p class="hero-copy">Built on sovereign compute. Powered by frontier-class models. Delivering population-scale
+            impact.</p>
+          <div class="hero-buttons"><a class="btn dark" href="#products">Explore the platform ↗</a><a class="btn light"
+              href="#contact">Contact us</a></div>
+        </div>
+        <div class="hero-art reveal" aria-label="Abstract animated AI orbit illustration">
+          <div class="floating-label label-a"><strong>Built for India</strong><span>Language · Culture · Context</span>
+          </div>
+          <div class="art-orbit">
+            <div class="art-core">स</div><i class="orbit-dot"></i><i class="orbit-dot two"></i><i
+              class="orbit-dot three"></i>
+          </div>
+          <div class="floating-label label-b"><strong>Indic intelligence</strong><span>One platform. Many
+              possibilities.</span></div>
+          <div class="art-caption">Research · Models · Applications</div>
+        </div>
+      </div>
+    </section>
+    <div class="ticker" aria-label="Platform capabilities">
+      <div class="ticker-inner"><span>India builds with Sarvam</span><span class="star">✳</span><span>Voice
+          agents</span><span class="star">✳</span><span>Speech to text</span><span class="star">✳</span><span>Text to
+          speech</span><span class="star">✳</span><span>Translation</span><span class="star">✳</span><span>Document
+          intelligence</span><span class="star">✳</span><span>India builds with Sarvam</span><span
+          class="star">✳</span><span>Voice agents</span><span class="star">✳</span><span>Speech to text</span><span
+          class="star">✳</span><span>Text to speech</span><span class="star">✳</span><span>Translation</span><span
+          class="star">✳</span><span>Document intelligence</span></div>
+    </div>
+    <section class="section" id="products">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">The AI platform India builds on</div>
+            <h2>Intelligence, built<br>around you.</h2>
+          </div>
+          <p class="section-intro">From everyday conversations to complex enterprise workflows, build experiences that
+            understand India's languages, people, and context.</p>
+        </div>
+        <div class="product-grid">
+          <article class="product-card green reveal">
+            <h3>Indus Cowork</h3>
+            <p>Connect your business context, tools, and teams so people can create, decide, and get work done faster.
+            </p>
+            <div class="pill-row"><span class="pill">Research</span><span class="pill">Data analysis</span><span
+                class="pill">Presentations</span><span class="pill">Automations</span></div>
+            <div class="mini-window">
+              <div class="window-top"><span>INDUS · WORKSPACE</span><span class="dots"><i></i><i></i><i></i></span>
+              </div>
+              <div class="task"><span class="task-num">01</span><span>Search official notices and circulars</span><span
+                  class="check">✓</span></div>
+              <div class="task"><span class="task-num">02</span><span>Read your connected workspace</span><span
+                  class="check">✓</span></div>
+              <div class="task"><span class="task-num">03</span><span>Draft a brief for your review</span><span
+                  class="check">↗</span></div>
+            </div>
+          </article>
+          <article class="product-card dark-card reveal">
+            <h3>Voice agents</h3>
+            <p>Natural, multilingual conversations that help businesses serve customers at scale.</p>
+            <div class="pill-row"><span class="pill">Conversational AI</span><span class="pill">Indic voices</span>
+            </div>
+            <div class="voice-visual" id="wave" aria-hidden="true"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="platform" style="padding-top:20px">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">One platform. Many capabilities.</div>
+            <h2>AI that gets<br>the work done.</h2>
+          </div>
+          <p class="section-intro">Purpose-built tools that help teams research, understand data, create content, and
+            automate repeatable work.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature reveal">
+            <div class="feature-art research">
+              <div class="paper-stack"><i></i><i></i><i></i><i style="width:55%"></i></div>
+            </div><span class="feature-number">01 / RESEARCH</span>
+            <h3>Find the signal.</h3>
+            <p>Search across information and connected sources, then turn findings into a useful, structured answer.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-art data">
+              <div class="chart-bars"><i style="--h:35%"></i><i style="--h:68%"></i><i style="--h:48%"></i><i
+                  style="--h:90%"></i><i style="--h:61%"></i></div>
+            </div><span class="feature-number">02 / DATA ANALYSIS</span>
+            <h3>Make data useful.</h3>
+            <p>Bring numbers into focus with clear analysis, visual summaries, and explanations of what changed.</p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-art present">
+              <div class="slides"><b>Ideas into<br>action.</b><i></i><i></i><i></i></div>
+            </div><span class="feature-number">03 / PRESENTATIONS</span>
+            <h3>Tell the story.</h3>
+            <p>Turn research and live figures into presentations that help teams communicate decisions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section code-section" id="developers">
+      <div class="wrap code-layout">
+        <div class="reveal">
+          <div class="kicker">For developers</div>
+          <h2>Build with<br>Indic AI.</h2>
+          <p class="section-intro" style="margin-top:22px">Add speech, translation, and document intelligence to your
+            applications with developer-friendly APIs.</p>
+          <div class="api-list">
+            <div class="api-item"><strong>Text to Speech</strong><span>Natural voices across Indic languages</span>
+            </div>
+            <div class="api-item"><strong>Speech to Text</strong><span>Accurate multilingual transcription</span></div>
+            <div class="api-item"><strong>Translation</strong><span>Language access at scale</span></div>
+            <div class="api-item"><strong>Document intelligence</strong><span>Structured data from documents</span>
+            </div>
+          </div><a class="btn dark" style="margin-top:26px" href="https://docs.sarvam.ai/" target="_blank"
+            rel="noreferrer">Read the documentation ↗</a>
+        </div>
+        <div class="code-box reveal">
+          <div class="code-top"><span>QUICKSTART / <span id="langName">PYTHON</span></span><button class="copy-btn"
+              id="copyCode">Copy code</button></div>
+          <div class="code-tabs"><button class="code-tab active" data-lang="python">Python</button><button
+              class="code-tab" data-lang="javascript">JavaScript</button><button class="code-tab"
+              data-lang="curl">cURL</button></div>
+          <pre><code id="codeContent">from sarvamai import SarvamAI
+
+client = SarvamAI(
+    api_subscription_key="YOUR_API_KEY"
+)
+
+response = client.text_to_speech.convert(
+    text="Namaste! How can I help you?",
+    target_language_code="hi-IN",
+    model="bulbul:v3",
+)
+
+print(response)</code></pre>
+          <div class="code-bottom"><span>REST API</span><span>Python & JavaScript SDKs</span><span>Test in a
+              playground</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="platform-band" id="enterprise">
+      <div class="wrap platform-grid">
+        <div class="reveal">
+          <div class="kicker" style="color:#bdbdb4">Powering India's AI-first future</div>
+          <h2>Built for scale.<br>Rooted in India.</h2>
+          <p>Build, deploy, and run AI with control. Models designed for India's languages and context, backed by
+            infrastructure built for real-world use.</p><a class="btn" style="border-color:#f7f6f2;margin-top:18px"
+            href="#contact">Explore Sarvam ↗</a>
+        </div>
+        <div class="stat-grid reveal">
+          <div class="stat"><strong>10B+</strong><span>Tokens served*</span></div>
+          <div class="stat"><strong>&lt;100ms</strong><span>Median latency*</span></div>
+          <div class="stat"><strong>99.9%</strong><span>Uptime SLA*</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Designed for real-world needs</div>
+            <h2>Enterprise-grade.<br>Out of the box.</h2>
+          </div>
+          <p class="section-intro">The flexibility, security, and support teams need to move from prototype to
+            production.</p>
+        </div>
+        <div class="cap-grid">
+          <article class="cap-card reveal">
+            <div class="cap-icon">↗</div>
+            <div>
+              <h3>Forward deployed</h3>
+              <p>Work alongside engineers to design, integrate, and optimise production-ready AI workflows.</p><a
+                href="#contact">Work with us ↗</a>
+            </div>
+          </article>
+          <article class="cap-card reveal">
+            <div class="cap-icon">⌘</div>
+            <div>
+              <h3>Deployment flexibility</h3>
+              <p>Choose a deployment model that fits your systems, operational needs, and data environment.</p><a
+                href="#contact">Explore deployment ↗</a>
+            </div>
+          </article>
+          <article class="cap-card reveal">
+            <div class="cap-icon">◈</div>
+            <div>
+              <h3>Security and governance</h3>
+              <p>Build with appropriate access controls, auditability, and governance in mind from day one.</p><a
+                href="#contact">Talk to our team ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="quote reveal">
+          <div>
+            <div class="kicker">Customer perspective</div>
+            <div class="quote-mark">“</div>
+          </div>
+          <div>
+            <blockquote>Our partnership has helped us scale more personalised conversations across the customer
+              lifecycle, reaching people with greater relevance and breaking engagement barriers.</blockquote>
+            <div class="quote-by"><strong>Customer story</strong> · Enterprise voice and conversational AI</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="updates">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="kicker">Research & updates</div>
+            <h2>What's next<br>in Indian AI.</h2>
+          </div><a class="btn light" href="https://www.sarvam.ai/" target="_blank" rel="noreferrer">Explore official
+            updates ↗</a>
+        </div>
+        <div class="updates">
+          <a class="update reveal" href="https://www.sarvam.ai/" target="_blank" rel="noreferrer"><span
+              class="update-meta">RESEARCH · MODELS</span>
+            <h3>Building models for India's languages and context</h3><span class="arrow">↗</span>
+          </a>
+          <a class="update reveal" href="https://docs.sarvam.ai/" target="_blank" rel="noreferrer"><span
+              class="update-meta">DEVELOPERS · API</span>
+            <h3>Start building with Sarvam APIs</h3><span class="arrow">↗</span>
+          </a>
+          <a class="update reveal" href="https://www.sarvam.ai/about-us" target="_blank" rel="noreferrer"><span
+              class="update-meta">COMPANY · INDIA</span>
+            <h3>Meet the team building sovereign AI</h3><span class="arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="cta" id="contact">
+      <div class="wrap">
+        <div class="cta-panel reveal">
+          <div>
+            <div class="kicker">The future is built together</div>
+            <h2>Build the future of AI with Sarvam.</h2>
+          </div><a class="btn dark" href="https://www.sarvam.ai/" target="_blank" rel="noreferrer">Get started ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div><a class="brand" href="#home"><span class="brand-mark"></span>sarvam</a>
+          <p>AI for all from India. A frontend recreation for learning and demonstration purposes.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><strong>PLATFORM</strong><a href="#platform">Capabilities</a><a
+              href="#products">Products</a><a href="#enterprise">Enterprise</a></div>
+          <div class="footer-col"><strong>BUILD</strong><a href="#developers">Developers</a><a
+              href="https://docs.sarvam.ai/" target="_blank" rel="noreferrer">Documentation ↗</a><a
+              href="#updates">Research & updates</a></div>
+          <div class="footer-col"><strong>COMPANY</strong><a href="https://www.sarvam.ai/about-us" target="_blank"
+              rel="noreferrer">About Sarvam ↗</a><a href="#contact">Contact</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 · Independent educational recreation</span><span>Not affiliated with or
+          endorsed by Sarvam AI.</span></div>
+    </div>
+  </footer>
+  <script>
+    const wave = document.getElementById('wave');
+    for (let i = 0; i < 42; i++) { const bar = document.createElement('span'); bar.style.setProperty('--h', `${12 + Math.abs(Math.sin(i * .72) * Math.cos(i * .17)) * 85}%`); wave.appendChild(bar) }
+    const menuToggle = document.getElementById('menuToggle'), navlinks = document.getElementById('navlinks');
+    menuToggle.addEventListener('click', () => { const open = navlinks.classList.toggle('open'); menuToggle.setAttribute('aria-expanded', String(open)); menuToggle.textContent = open ? '×' : '☰' });
+    navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { navlinks.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); menuToggle.textContent = '☰' }));
+    const snippets = {
+      python: `from sarvamai import SarvamAI\n\nclient = SarvamAI(\n    api_subscription_key="YOUR_API_KEY"\n)\n\nresponse = client.text_to_speech.convert(\n    text="Namaste! How can I help you?",\n    target_language_code="hi-IN",\n    model="bulbul:v3",\n)\n\nprint(response)`,
+      javascript: `import { SarvamAIClient } from "sarvamai";\n\nconst client = new SarvamAIClient({\n  apiSubscriptionKey: "YOUR_API_KEY",\n});\n\nconst response = await client.textToSpeech({\n  text: "Namaste! How can I help you?",\n  targetLanguageCode: "hi-IN",\n  model: "bulbul:v3",\n});\n\nconsole.log(response);`,
+      curl: `curl -X POST "https://api.sarvam.ai/text-to-speech" \\\n  -H "api-subscription-key: YOUR_API_KEY" \\\n  -H "Content-Type: application/json" \\\n  -d '{\n    "text": "Namaste! How can I help you?",\n    "target_language_code": "hi-IN",\n    "model": "bulbul:v3"\n  }'`
+    };
+    const codeContent = document.getElementById('codeContent'), langName = document.getElementById('langName');
+    document.querySelectorAll('.code-tab').forEach(btn => btn.addEventListener('click', () => { document.querySelectorAll('.code-tab').forEach(b => b.classList.remove('active')); btn.classList.add('active'); codeContent.textContent = snippets[btn.dataset.lang]; langName.textContent = btn.dataset.lang.toUpperCase() }));
+    document.getElementById('copyCode').addEventListener('click', async () => { const button = document.getElementById('copyCode'); try { await navigator.clipboard.writeText(codeContent.textContent); button.textContent = 'Copied ✓' } catch { button.textContent = 'Select code to copy' } setTimeout(() => button.textContent = 'Copy code', 1800) });
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target) } }), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+
+</html>
